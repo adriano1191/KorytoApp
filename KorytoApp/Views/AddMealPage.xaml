@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KorytoApp.Views.AddMealPage"
+             Title="Dodaj posiłek">
+
+    <VerticalStackLayout Padding="10">
+        <Entry x:Name="nameEntry" Placeholder="Nazwa posiłku"/>
+        <Entry x:Name="calEntry" Placeholder="Kalorie" Keyboard="Numeric"/>
+        <Button Text="Dodaj" Clicked="OnAddClicked"/>
+    </VerticalStackLayout>
+</ContentPage>

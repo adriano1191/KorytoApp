@@ -1,25 +1,28 @@
-﻿namespace KorytoApp
+﻿using KorytoApp.ViewModels;
+using KorytoApp.Views;
+
+namespace KorytoApp
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        private readonly MainViewModel _vm;
 
-        public MainPage()
+        public MainPage(MainViewModel vm)
         {
             InitializeComponent();
+            BindingContext = _vm = vm;
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void OnAddMealClicked(object sender, EventArgs e)
         {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            await Navigation.PushAsync(new AddMealPage());
         }
-    }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _vm.LoadMealsForToday();
+        }
+
+    }
 }
