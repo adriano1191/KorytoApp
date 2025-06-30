@@ -17,6 +17,10 @@ namespace KorytoApp
         {
             await Navigation.PushAsync(new AddMealPage());
         }
+        private async void OnUserDataClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new UserData());
+        }
 
         protected override void OnAppearing()
         {

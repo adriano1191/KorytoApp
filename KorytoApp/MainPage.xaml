@@ -34,8 +34,8 @@
 
                             <Grid Padding="10">
                                 <VerticalStackLayout>
-                                    <Label Text="{Binding Name}" FontSize="18" TextColor="Black"/>
-                                    <Label Text="{Binding Calories, StringFormat='{}{0} kcal'}" FontSize="14" TextColor="Gray"/>
+                                    <Label Text="{Binding Name}" FontSize="18" TextColor="BurlyWood"/>
+                                    <Label Text="{Binding Calories, StringFormat='{}{0} kcal'}" FontSize="14" TextColor="white"/>
                                 </VerticalStackLayout>
                             </Grid>
                         </SwipeView>
@@ -45,5 +45,6 @@
         </ListView>
 
         <Button Text="Dodaj posiłek" Clicked="OnAddMealClicked"/>
+        <Button Text="Dane" Clicked="OnUserDataClicked"/>
     </VerticalStackLayout>
 </ContentPage>

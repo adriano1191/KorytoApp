@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:KorytoApp.ViewModels"
+             x:Class="KorytoApp.Views.UserData"
+             x:DataType="viewmodels:UserViewModel"
+             Title="Dane użytkownika">
+    <ContentPage.Content>
+        <VerticalStackLayout Padding="20">
+
+            <!-- Name -->
+            <Label Text="Nazwa"/>
+            <Label Text="{Binding Name}" IsVisible="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
+            <Entry x:Name="nameEntry" Text="{Binding Name}" IsReadOnly="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
+
+            <!-- Height -->
+            <Label Text="Wzrost"/>
+            <Label Text="{Binding Height}" IsVisible="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
+            <Entry x:Name="heightEntry" Text="{Binding Height}" IsReadOnly="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
+
+            <!-- Weight -->
+            <Label Text="Waga"/>
+            <Label Text="{Binding Weight}" IsVisible="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
+            <Entry x:Name="weightEntry" Text="{Binding Weight}" IsReadOnly="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
+
+            <!-- Gender -->
+            <Label Text="Płeć"/>
+            <Label Text="{Binding Gender}" IsVisible="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
+            <Entry x:Name="genderEntry" Text="{Binding Gender}" IsReadOnly="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
+
+            <!-- Przycisk Edytuj/Zapisz -->
+            <Button Text="Edytuj" Command="{Binding ToggleEditCommand}" IsVisible="{Binding IsReadOnly}" />
+            <Button Text="Zapisz" Command="{Binding SaveUserCommand}" IsVisible="{Binding IsEdit}" />
+
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

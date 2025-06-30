@@ -24,6 +24,10 @@ namespace KorytoApp
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddTransient<AddMealPage>();
+            builder.Services.AddSingleton(new UserService(db));
+            builder.Services.AddSingleton<UserService>();
+            builder.Services.AddTransient<UserViewModel>();
+            builder.Services.AddTransient<UserData>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
