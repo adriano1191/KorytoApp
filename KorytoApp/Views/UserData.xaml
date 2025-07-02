@@ -9,29 +9,35 @@
         <VerticalStackLayout Padding="20">
 
             <!-- Name -->
-            <Label Text="Nazwa"/>
-            <Label Text="{Binding Name}" IsVisible="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
-            <Entry x:Name="nameEntry" Text="{Binding Name}" IsReadOnly="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
+            <Label Text="Nazwa:"/>
+            <Label Text="{Binding Name}" IsVisible="{Binding IsReadOnly}" TextColor="LightGrey"/>
+            <BoxView HeightRequest="1" BackgroundColor="White" Margin="0, 5" IsVisible="{Binding IsReadOnly}"  />
+            <Entry x:Name="nameEntry" Text="{Binding Name}" IsVisible="{Binding IsEdit}" TextColor="LightBlue" Margin="-5"/>
 
             <!-- Height -->
-            <Label Text="Wzrost"/>
-            <Label Text="{Binding Height}" IsVisible="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
-            <Entry x:Name="heightEntry" Text="{Binding Height}" IsReadOnly="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
+            <Label Text="Wzrost:"/>
+            <Label Text="{Binding Height}" IsVisible="{Binding IsReadOnly}" TextColor="LightGrey"/>
+            <BoxView HeightRequest="1" BackgroundColor="White" Margin="0, 5" IsVisible="{Binding IsReadOnly}"  />
+            <Entry x:Name="heightEntry" Text="{Binding Height}" IsVisible="{Binding IsEdit}" TextColor="LightBlue" Keyboard="Numeric" Margin="-5"/>
 
             <!-- Weight -->
-            <Label Text="Waga"/>
-            <Label Text="{Binding Weight}" IsVisible="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
-            <Entry x:Name="weightEntry" Text="{Binding Weight}" IsReadOnly="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
+            <Label Text="Waga:"/>
+            <Label Text="{Binding Weight}" IsVisible="{Binding IsReadOnly}" TextColor="LightGrey"/>
+            <BoxView HeightRequest="1" BackgroundColor="White" Margin="0, 5" IsVisible="{Binding IsReadOnly}" />
+            <Entry x:Name="weightEntry" Text="{Binding Weight}" IsVisible="{Binding IsEdit}" TextColor="LightBlue" Keyboard="Numeric" Margin="-5" />
 
             <!-- Gender -->
-            <Label Text="Płeć"/>
-            <Label Text="{Binding Gender}" IsVisible="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
-            <Entry x:Name="genderEntry" Text="{Binding Gender}" IsReadOnly="{Binding IsEditing, Converter={StaticResource InverseBoolConverter}}" />
+            <Label Text="Płeć:"/>
+            <Label Text="{Binding Gender}" IsVisible="{Binding IsReadOnly}" TextColor="LightGrey"/>
+            <BoxView HeightRequest="1" BackgroundColor="White" Margin="0, 5" IsVisible="{Binding IsReadOnly}" />
+            <Picker Title="Wybierz płeć" ItemsSource="{Binding Genders}" SelectedItem="{Binding Gender}" IsVisible="{Binding IsEdit}" TextColor="LightBlue" Margin="-5"/>
 
             <!-- Przycisk Edytuj/Zapisz -->
-            <Button Text="Edytuj" Command="{Binding ToggleEditCommand}" IsVisible="{Binding IsReadOnly}" />
-            <Button Text="Zapisz" Command="{Binding SaveUserCommand}" IsVisible="{Binding IsEdit}" />
 
+            <Button Text="Edytuj" Command="{Binding ToggleEditCommand}" IsVisible="{Binding IsReadOnly}" Margin="0, 50" />
+            <Button Text="Zapisz" Command="{Binding SaveUserCommand}" IsVisible="{Binding IsEdit}" Margin="0, 50" />
+
+            <Label Text="{Binding UserId}"/>
         </VerticalStackLayout>
     </ContentPage.Content>
 </ContentPage>
