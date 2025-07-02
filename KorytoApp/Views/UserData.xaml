@@ -14,6 +14,12 @@
             <BoxView HeightRequest="1" BackgroundColor="White" Margin="0, 5" IsVisible="{Binding IsReadOnly}"  />
             <Entry x:Name="nameEntry" Text="{Binding Name}" IsVisible="{Binding IsEdit}" TextColor="LightBlue" Margin="-5"/>
 
+            <!-- Age -->
+            <Label Text="Wiek:"/>
+            <Label Text="{Binding Age}" IsVisible="{Binding IsReadOnly}" TextColor="LightGrey"/>
+            <BoxView HeightRequest="1" BackgroundColor="White" Margin="0, 5" IsVisible="{Binding IsReadOnly}"  />
+            <Entry x:Name="ageEntry" Text="{Binding Age}" IsVisible="{Binding IsEdit}" TextColor="LightBlue" Keyboard="Numeric" Margin="-5"/>
+            
             <!-- Height -->
             <Label Text="Wzrost:"/>
             <Label Text="{Binding Height}" IsVisible="{Binding IsReadOnly}" TextColor="LightGrey"/>
@@ -28,10 +34,22 @@
 
             <!-- Gender -->
             <Label Text="Płeć:"/>
-            <Label Text="{Binding Gender}" IsVisible="{Binding IsReadOnly}" TextColor="LightGrey"/>
+            <Label Text="{Binding SelectedGender.GenderLabel}" IsVisible="{Binding IsReadOnly}" TextColor="LightGrey"/>
             <BoxView HeightRequest="1" BackgroundColor="White" Margin="0, 5" IsVisible="{Binding IsReadOnly}" />
-            <Picker Title="Wybierz płeć" ItemsSource="{Binding Genders}" SelectedItem="{Binding Gender}" IsVisible="{Binding IsEdit}" TextColor="LightBlue" Margin="-5"/>
+            <Picker Title="Wybierz płeć" ItemsSource="{Binding GenderOptions}" ItemDisplayBinding="{Binding GenderLabel}" SelectedItem="{Binding SelectedGender}" IsVisible="{Binding IsEdit}" TextColor="LightBlue" Margin="-5"/>
 
+            <!-- Activity -->
+            <Label Text="Aktywność:"/>
+            <Label Text="{Binding SelectedActivity.ActivityLabel}" IsVisible="{Binding IsReadOnly}" TextColor="LightGrey"/>
+            <BoxView HeightRequest="1" BackgroundColor="White" Margin="0, 5" IsVisible="{Binding IsReadOnly}" />
+            <Picker Title="Aktywność" ItemsSource="{Binding ActivityOptions}" ItemDisplayBinding="{Binding ActivityLabel}" SelectedItem="{Binding SelectedActivity}" IsVisible="{Binding IsEdit}" TextColor="LightBlue" Margin="-5"/>
+
+
+            <!-- BMI MBR Water -->
+            <Label Text="{Binding BmiText}" TextColor="LightGrey"/>
+            <Label Text="{Binding BmrText}" TextColor="LightGrey"/>
+            <Label Text="{Binding WaterText}" TextColor="LightGrey"/>
+            <Label Text="{Binding TdeeText}" TextColor="LightGrey"/>
             <!-- Przycisk Edytuj/Zapisz -->
 
             <Button Text="Edytuj" Command="{Binding ToggleEditCommand}" IsVisible="{Binding IsReadOnly}" Margin="0, 50" />
