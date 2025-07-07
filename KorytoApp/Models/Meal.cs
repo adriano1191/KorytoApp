@@ -12,6 +12,8 @@ namespace KorytoApp.Models
 
         public int Calories { get; set; }
 
+        public int Water { get; set; }
+
         public DateTime Time { get; set; }
     }
 }

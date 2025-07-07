@@ -17,7 +17,7 @@ namespace KorytoApp.Views
 
         private async void OnAddClicked(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(nameEntry.Text) || !int.TryParse(calEntry.Text, out int calories))
+            if (string.IsNullOrWhiteSpace(nameEntry.Text) || !int.TryParse(calEntry.Text, out int calories) || !int.TryParse(waterEntry.Text, out int water))
             {
                 await DisplayAlert("Błąd", "Wprowadź poprawne dane", "OK");
                 return;
@@ -27,6 +27,7 @@ namespace KorytoApp.Views
             {
                 Name = nameEntry.Text,
                 Calories = calories,
+                Water = water,
                 Time = DateTime.Now
             };
 

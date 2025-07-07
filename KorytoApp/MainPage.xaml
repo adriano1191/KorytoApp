@@ -13,6 +13,7 @@
 
         <Label Text="Spożyte dziś kalorie:" FontSize="24"/>
         <Label Text="{Binding TotalCalories}" FontSize="36" TextColor="DarkRed"/>
+        <Label Text="{Binding TotalWater}" FontSize="36" TextColor="LightBlue"/>
 
         <ListView ItemsSource="{Binding MealsToday}"
                   HasUnevenRows="True"
@@ -36,6 +37,7 @@
                                 <VerticalStackLayout>
                                     <Label Text="{Binding Name}" FontSize="18" TextColor="BurlyWood"/>
                                     <Label Text="{Binding Calories, StringFormat='{}{0} kcal'}" FontSize="14" TextColor="white"/>
+                                    <Label Text="{Binding Water, StringFormat='{}{0} ml wody'}" FontSize="14" TextColor="white"/>
                                 </VerticalStackLayout>
                             </Grid>
                         </SwipeView>
@@ -46,5 +48,6 @@
 
         <Button Text="Dodaj posiłek" Clicked="OnAddMealClicked"/>
         <Button Text="Dane" Clicked="OnUserDataClicked"/>
+        <Button Text="Historia" Clicked="OnHistoryMealClicked"/>
     </VerticalStackLayout>
 </ContentPage>

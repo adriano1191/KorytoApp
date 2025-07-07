@@ -8,14 +8,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace KorytoApp.ViewModels
 {
-    public partial class MainViewModel : ObservableObject
+    public partial class HistoryMealModel : ObservableObject
     {
         private readonly MealService _mealService;
-
-        public ObservableCollection<Meal> MealsToday { get; } = [];
+        public ObservableCollection<Meal> Meals { get; } = new();
 
         [ObservableProperty]
         private int totalCalories;
@@ -23,30 +23,30 @@ namespace KorytoApp.ViewModels
         [ObservableProperty]
         private int totalWater;
 
-        public MainViewModel(MealService mealService)
+        public HistoryMealModel(MealService mealService)
         {
             _mealService = mealService;
-            //LoadMealsForToday();
         }
 
-        public async void LoadMealsForToday()
+        public async Task LoadMealsForDate(DateTime date)
         {
-            MealsToday.Clear();
-            var meals = await _mealService.GetMealsForDate(DateTime.Today);
-            System.Diagnostics.Debug.WriteLine($"[DEBUG] Pobrano {meals.Count} posiłków");
+            var meals = await _mealService.GetMealsForDate(date);
+            Meals.Clear();
             foreach (var meal in meals)
-                MealsToday.Add(meal);
+                Meals.Add(meal);
 
-            TotalCalories = MealsToday.Sum(m => m.Calories);
-            TotalWater = MealsToday.Sum(w => w.Water);
+            TotalCalories = meals.Sum(m => m.Calories);
+            TotalWater = meals.Sum(w => w.Water);
         }
+
         [RelayCommand]
-        public async Task DeleteMeal(Meal meal)
+        private async Task DeleteMeal(Meal meal)
         {
+            if (meal == null)
+                return;
+
             await _mealService.DeleteMeal(meal);
-            LoadMealsForToday(); // odświeżenie listy
+            Meals.Remove(meal);
         }
-
-
     }
 }

@@ -21,6 +21,11 @@ namespace KorytoApp
         {
             await Navigation.PushAsync(new UserData());
         }
+        private async void OnHistoryMealClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new HistoryMealPage());
+        }
+
 
         protected override void OnAppearing()
         {

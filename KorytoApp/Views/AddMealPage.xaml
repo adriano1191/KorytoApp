@@ -5,8 +5,12 @@
              Title="Dodaj posiłek">
 
     <VerticalStackLayout Padding="10">
+        <Label Text="Posiłek:"/>
         <Entry x:Name="nameEntry" Placeholder="Nazwa posiłku"/>
-        <Entry x:Name="calEntry" Placeholder="Kalorie" Keyboard="Numeric"/>
+        <Label Text="Kalorie:"/>
+        <Entry x:Name="calEntry" Placeholder="0" Keyboard="Numeric"/>
+        <Label Text="Woda w ml:"/>
+        <Entry x:Name="waterEntry" Placeholder="0" Keyboard="Numeric"/>
         <Button Text="Dodaj" Clicked="OnAddClicked"/>
     </VerticalStackLayout>
 </ContentPage>
