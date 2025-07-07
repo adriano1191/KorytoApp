@@ -12,8 +12,12 @@
     <VerticalStackLayout Padding="10" Spacing="20">
 
         <Label Text="Spożyte dziś kalorie:" FontSize="24"/>
+        <Label Text="{Binding Tdee}" FontSize="36" TextColor="DarkRed"/>
         <Label Text="{Binding TotalCalories}" FontSize="36" TextColor="DarkRed"/>
+        <Label Text="{Binding WaterLimit}" FontSize="36" TextColor="LightBlue"/>
         <Label Text="{Binding TotalWater}" FontSize="36" TextColor="LightBlue"/>
+        
+        
 
         <ListView ItemsSource="{Binding MealsToday}"
                   HasUnevenRows="True"

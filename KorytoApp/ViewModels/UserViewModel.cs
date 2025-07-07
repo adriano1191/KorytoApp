@@ -141,7 +141,7 @@ namespace KorytoApp.ViewModels
             IsReadOnly = !IsReadOnly;
         }
 
-        private void BMICalculate(int weight, int height)
+        public void BMICalculate(int weight, int height)
         {
             double heightInMeters = height / 100.0;
             Bmi = weight / (heightInMeters * heightInMeters);
