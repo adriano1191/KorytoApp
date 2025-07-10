@@ -1,21 +1,93 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:KorytoApp.ViewModels"
-             xmlns:models="clr-namespace:KorytoApp.Models"
-             x:Class="KorytoApp.MainPage"
-             x:Name="mainPage"
-             x:DataType="viewmodels:MainViewModel"
-             Title="Dzienny bilans kalorii">
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:KorytoApp.ViewModels"
+    xmlns:models="clr-namespace:KorytoApp.Models"
+    xmlns:charts="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+    xmlns:maui="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
+    x:Class="KorytoApp.MainPage"
+    x:Name="mainPage"
+    x:DataType="viewmodels:MainViewModel"
+    Title="Dzienny bilans kalorii">
 
-    <VerticalStackLayout Padding="10" Spacing="20">
 
-        <Label Text="Spożyte dziś kalorie:" FontSize="24"/>
-        <Label Text="{Binding Tdee}" FontSize="36" TextColor="DarkRed"/>
-        <Label Text="{Binding TotalCalories}" FontSize="36" TextColor="DarkRed"/>
-        <Label Text="{Binding WaterLimit}" FontSize="36" TextColor="LightBlue"/>
-        <Label Text="{Binding TotalWater}" FontSize="36" TextColor="LightBlue"/>
+
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="30">
+
+        <Grid>
+            <!-- Tło -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Koncentryczne wykresy -->
+            <Grid HorizontalOptions="Center" VerticalOptions="Center" >
+                <!-- Zewnętrzny wykres: KALORIE -->
+                <charts:SfCircularChart>
+                        <charts:DoughnutSeries
+                    ItemsSource="{Binding CaloriesData}"
+                    XBindingPath="Label"
+                    YBindingPath="Value"
+                    Radius="1.0"
+                    PaletteBrushes="{Binding CustomBrushesCalorier}"
+                    InnerRadius="0.9"/>
+
+
+                    </charts:SfCircularChart>
+
+                <!-- Wewnętrzny wykres: WODA -->
+                <charts:SfCircularChart>
+                    <charts:DoughnutSeries   
+                    ItemsSource="{Binding WaterData}"
+                    XBindingPath="Label"
+                    YBindingPath="Value"
+                    Radius="0.85"    
+                    PaletteBrushes="{Binding CustomBrushesWater}"
+                    InnerRadius="0.9"/>
+                </charts:SfCircularChart>
+
+                <!-- Obrazek w środku -->
+                <Image Source="knur.png"
+                   HeightRequest="150"
+                   WidthRequest="150"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+
+            </Grid>
+        </Grid>
+
+
+        <!-- Przesunięcie na środek okręgów -->
+
+            <Label x:Name="MyLabel1" Text="Spożyte dziś kalorie:" 
+           FontSize="26"
+           LineBreakMode="NoWrap"
+           MaxLines="1"
+           HorizontalOptions="Fill"
+           HorizontalTextAlignment="Center" />
+
+            <Label 
+
+                Text="{Binding CaloriesLabelText}" 
+                FontSize="22" 
+                TextColor="#ed3131"               
+                LineBreakMode="NoWrap"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"/>
+
+            <Label 
+
+                Text="{Binding WaterLabelText}" 
+                FontSize="22" 
+                TextColor="#25a8e6"
+
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"/>
+
         
         
 
@@ -54,4 +126,7 @@
         <Button Text="Dane" Clicked="OnUserDataClicked"/>
         <Button Text="Historia" Clicked="OnHistoryMealClicked"/>
     </VerticalStackLayout>
+
+    </ScrollView>
 </ContentPage>
+

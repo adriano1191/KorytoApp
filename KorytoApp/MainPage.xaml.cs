@@ -1,5 +1,8 @@
 ﻿using KorytoApp.ViewModels;
 using KorytoApp.Views;
+using System.Collections.ObjectModel;
+using static KorytoApp.ViewModels.MainViewModel;
+
 
 namespace KorytoApp
 {
@@ -7,10 +10,13 @@ namespace KorytoApp
     {
         private readonly MainViewModel _vm;
 
+
         public MainPage(MainViewModel vm)
         {
             InitializeComponent();
             BindingContext = _vm = vm;
+
+
         }
 
         private async void OnAddMealClicked(object sender, EventArgs e)
@@ -27,11 +33,20 @@ namespace KorytoApp
         }
 
 
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
             _vm.LoadMealsForToday();
+            //LoadCharts();
+
+
         }
+
+
+
+
+
 
     }
 }

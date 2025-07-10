@@ -11,11 +11,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using Syncfusion.Maui.Charts;
+
 
 namespace KorytoApp.ViewModels
 {
+
     public partial class MainViewModel : ObservableObject
     {
+        public class ChartData
+        {
+            public string Label { get; set; }
+            public double Value { get; set; }
+        }
+        public ObservableCollection<ChartData> CaloriesData { get; set; }
+        public ObservableCollection<ChartData> WaterData { get; set; }
+
+        public List<Brush> CustomBrushesCalorier { get; set; }
+        public List<Brush> CustomBrushesWater { get; set; }
+
         private readonly MealService _mealService;
         private readonly UserService _userService;
 
@@ -31,12 +45,38 @@ namespace KorytoApp.ViewModels
         [ObservableProperty]
         public double waterLimit = 0;
 
+        [ObservableProperty]
+        public string caloriesLabelText;
+
+        [ObservableProperty]
+        public string waterLabelText;
+
+
         public MainViewModel(MealService mealService, UserService userService)
         {
             _mealService = mealService;
             _userService = userService;
             //LoadMealsForToday();
             TDEEAndWaterCalculate();
+
+
+            CustomBrushesCalorier = new List<Brush>
+            {
+ 
+                new SolidColorBrush(Color.FromArgb("#ed3131")),
+                new SolidColorBrush(Color.FromArgb("#a5a5a5"))
+            };
+
+
+            CustomBrushesWater = new List<Brush>
+            {
+
+                new SolidColorBrush(Color.FromArgb("#25a8e6")),
+                new SolidColorBrush(Color.FromArgb("#a5a5a5"))
+            };
+
+
+
         }
 
 
@@ -51,6 +91,29 @@ namespace KorytoApp.ViewModels
 
             TotalCalories = MealsToday.Sum(m => m.Calories);
             TotalWater = MealsToday.Sum(w => w.Water);
+
+            
+            CaloriesData = new ObservableCollection<ChartData>
+{
+            new ChartData { Label = "Spożyte", Value = TotalCalories },
+            new ChartData { Label = "Pozostało", Value = Math.Max(0, Tdee - TotalCalories) }
+        };
+
+                    WaterData = new ObservableCollection<ChartData>
+        {
+            new ChartData { Label = "Wypite", Value = TotalWater / 1000.0 },
+            new ChartData { Label = "Pozostało", Value = Math.Max(0, WaterLimit - TotalWater / 1000.0) }
+        };
+
+
+
+
+            OnPropertyChanged(nameof(CaloriesData));
+            OnPropertyChanged(nameof(WaterData));
+
+            CaloriesLabelText = $"🥩 Kalorie: {TotalCalories} / {Tdee} kcal 🥩";
+            WaterLabelText = $"💧Woda: {TotalWater / 1000.0:F2} / {WaterLimit:F2} l💧";
+
         }
         [RelayCommand]
         public async Task DeleteMeal(Meal meal)
@@ -94,6 +157,8 @@ namespace KorytoApp.ViewModels
 
             }
         }
+
+
 
 
 
