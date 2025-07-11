@@ -40,9 +40,6 @@ namespace KorytoApp.ViewModels
 
             TotalCalories = meals.Sum(m => m.Calories);
             TotalWater = meals.Sum(w => w.Water);
-
-            OnPropertyChanged(nameof(TotalCalories)); // odświeżenie danych wykresu kalorii
-            OnPropertyChanged(nameof(TotalWater));   // odświeżenie danych wykresu wody
         }
 
         [RelayCommand]

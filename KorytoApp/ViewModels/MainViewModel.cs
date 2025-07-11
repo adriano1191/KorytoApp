@@ -57,6 +57,7 @@ namespace KorytoApp.ViewModels
         private readonly SpeechBubbleService _speechService = new();    // serwis do dymków z wiadomościami
 
         private string _speechBubbleText; // tekst dymku z wiadomościami
+        private static bool _isMessengerRegistered = false;     // flaga do sprawdzenia, czy wiadomości są zarejestrowane
 
         /// <summary>
         /// Tekst do wyświetlenia w dymku z wiadomościami.
@@ -101,21 +102,23 @@ namespace KorytoApp.ViewModels
 
 
 
-            // rejestracja wiadomości o dodaniu posiłku
-            WeakReferenceMessenger.Default.Register<MealAddedMessage>(this, (r, m) => //
+            if (!_isMessengerRegistered)
             {
-                SpeechChoice("AddMeal", m.Calories, m.Water); // wybór wiadomości na podstawie kontekstu
-                // ...i ewentualnie else – default
-                LoadMealsForToday(); // odśwież listę
-            });
-        }
+                WeakReferenceMessenger.Default.Register<MealAddedMessage>(this, async (r, m) =>
+                {
+                    SpeechChoice("AddMeal", m.Calories, m.Water);
+                    //await LoadMealsForToday();
+                });
+                _isMessengerRegistered = true;
+            }
+            }
 
 
 
         /// <summary>
         /// Ładuje posiłki na dzisiaj z serwisu MealService.
         /// </summary>
-        public async void LoadMealsForToday()
+        public async Task LoadMealsForToday()
         {
             MealsToday.Clear();     // czyszczenie listy posiłków na dzisiaj
             var meals = await _mealService.GetMealsForDate(DateTime.Today);     // pobieranie posiłków z serwisu
@@ -237,21 +240,21 @@ namespace KorytoApp.ViewModels
             }
             else if (type == "AddMeal")     // jeśli dodano posiłek
             {
-                if (calories == 0 && water > 0)
+                if (calories == 0 && water > 0) // tylko woda
                 {
-                    ShowRandomSpeech(SpeechContext.AddWater); // tylko woda
+                    ShowRandomSpeech(SpeechContext.AddWater); 
                 }
-                else if (calories > 0 && water == 0)
+                else if (calories > 0 && water == 0 && TotalCalories < Tdee) // tylko żarcie
                 {
-                    ShowRandomSpeech(SpeechContext.AddMeal); // tylko żarcie
+                    ShowRandomSpeech(SpeechContext.AddMeal); 
                 }
-                else if (calories > 0 && water > 0)
+                else if (calories > 0 && water > 0 && TotalCalories < Tdee) // jedno i drugie, możesz dodać nowy kontekst
                 {
-                    ShowRandomSpeech(SpeechContext.AddMealAndWater); // jedno i drugie, możesz dodać nowy kontekst
+                    ShowRandomSpeech(SpeechContext.AddMealAndWater); 
                 }
-                else if (TotalCalories >= Tdee)
+                else if (TotalCalories >= Tdee) // przekroczone kalorie
                 {
-                    ShowRandomSpeech(SpeechContext.MaxCalories); // przekroczone kalorie
+                    ShowRandomSpeech(SpeechContext.MaxCalories); 
                 }
             }
         }
