@@ -12,7 +12,7 @@ namespace KorytoApp
     {
         public static MauiApp CreateMauiApp()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1JEaF5cXmRCeUx3Qnxbf1x1ZFJMYlpbRH5PMyBoS35Rc0VkWH9ed3ZTRmheWEx1VEFd");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1JEaF5cXmRCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXhfcXRQRGdcWUZ3WUpWYEk=");
 
             var builder = MauiApp.CreateBuilder();
             builder
