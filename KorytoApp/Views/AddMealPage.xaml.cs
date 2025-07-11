@@ -1,4 +1,6 @@
-﻿using KorytoApp.Data;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using KorytoApp.Data;
+using KorytoApp.Messages;
 using KorytoApp.Models;
 using KorytoApp.Services;
 using System.Formats.Tar;
@@ -32,6 +34,8 @@ namespace KorytoApp.Views
             };
 
             await _mealService.AddMeal(meal);
+            WeakReferenceMessenger.Default.Send(new MealAddedMessage(calories, water));
+
             await Navigation.PopAsync();
         }
     }

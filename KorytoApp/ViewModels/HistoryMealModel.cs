@@ -23,6 +23,8 @@ namespace KorytoApp.ViewModels
         [ObservableProperty]
         private int totalWater;
 
+        private DateTime dateSelected;
+
         public HistoryMealModel(MealService mealService)
         {
             _mealService = mealService;
@@ -30,6 +32,7 @@ namespace KorytoApp.ViewModels
 
         public async Task LoadMealsForDate(DateTime date)
         {
+            dateSelected = date;
             var meals = await _mealService.GetMealsForDate(date);
             Meals.Clear();
             foreach (var meal in meals)
@@ -37,6 +40,9 @@ namespace KorytoApp.ViewModels
 
             TotalCalories = meals.Sum(m => m.Calories);
             TotalWater = meals.Sum(w => w.Water);
+
+            OnPropertyChanged(nameof(TotalCalories)); // odświeżenie danych wykresu kalorii
+            OnPropertyChanged(nameof(TotalWater));   // odświeżenie danych wykresu wody
         }
 
         [RelayCommand]
@@ -47,6 +53,7 @@ namespace KorytoApp.ViewModels
 
             await _mealService.DeleteMeal(meal);
             Meals.Remove(meal);
+            await LoadMealsForDate(dateSelected); // odświeżenie listy po usunięciu
         }
     }
 }

@@ -14,17 +14,19 @@ namespace KorytoApp.Views
             _viewModel = new HistoryMealModel(mealService);
             BindingContext = _viewModel;
 
-            var today = DateTime.Today;
-            _ = _viewModel.LoadMealsForDate(today);
+            //var today = DateTime.Today;
+           // _ = _viewModel.LoadMealsForDate(today);
         }
         private async void OnDateSelected(object sender, DateChangedEventArgs e)
         {
             await _viewModel.LoadMealsForDate(e.NewDate);
+
         }
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await _viewModel.LoadMealsForDate(DateTime.Now);
+            await _viewModel.LoadMealsForDate(DateTime.Today);
+
         }
     }
 }

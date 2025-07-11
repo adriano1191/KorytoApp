@@ -1,4 +1,5 @@
-﻿using KorytoApp.ViewModels;
+﻿using KorytoApp.Services;
+using KorytoApp.ViewModels;
 using KorytoApp.Views;
 using System.Collections.ObjectModel;
 using static KorytoApp.ViewModels.MainViewModel;
@@ -16,6 +17,7 @@ namespace KorytoApp
             InitializeComponent();
             BindingContext = _vm = vm;
 
+            
 
         }
 

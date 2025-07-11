@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage 
+<ContentPage
+    x:Class="KorytoApp.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:viewmodels="clr-namespace:KorytoApp.ViewModels"
-    xmlns:models="clr-namespace:KorytoApp.Models"
     xmlns:charts="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
     xmlns:maui="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
-    x:Class="KorytoApp.MainPage"
+    xmlns:models="clr-namespace:KorytoApp.Models"
+    xmlns:viewmodels="clr-namespace:KorytoApp.ViewModels"
     x:Name="mainPage"
-    x:DataType="viewmodels:MainViewModel"
-    Title="Dzienny bilans kalorii">
+    Title="Dzienny bilans kalorii"
+    x:DataType="viewmodels:MainViewModel">
 
 
     <Grid RowDefinitions="*,Auto">
@@ -19,73 +19,80 @@
             <VerticalStackLayout Padding="20" Spacing="30">
 
                 <Grid>
-                    <!-- Tło -->
+                    <!--  Tło  -->
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <!-- Koncentryczne wykresy -->
-                    <Border Grid.Row="1"
-               Margin="16,8"
-               Padding="10"
-               BackgroundColor="#2b2b2b"
-               VerticalOptions="End"
-               StrokeShape="RoundRectangle 12"   
-               StrokeThickness="0"  
-                           
-               >
+                    <!--  Koncentryczne wykresy  -->
+                    <Border
+                        Grid.Row="1"
+                        Margin="16,8"
+                        Padding="10"
+                        BackgroundColor="#2b2b2b"
+                        StrokeShape="RoundRectangle 12"
+                        StrokeThickness="0"
+                        VerticalOptions="End">
 
-                        <Grid HorizontalOptions="Center" VerticalOptions="Center" >
-                            <!-- Zewnętrzny wykres: KALORIE -->
+                        <Grid HorizontalOptions="Center" VerticalOptions="Center">
+                            <!--  Zewnętrzny wykres: KALORIE  -->
                             <charts:SfCircularChart>
                                 <charts:DoughnutSeries
-                    ItemsSource="{Binding CaloriesData}"
-                    XBindingPath="Label"
-                    YBindingPath="Value"
-                    Radius="1.0"
-                    PaletteBrushes="{Binding CustomBrushesCalorier}"
-                    InnerRadius="0.9"/>
+                                    InnerRadius="0.9"
+                                    ItemsSource="{Binding CaloriesData}"
+                                    PaletteBrushes="{Binding CustomBrushesCalorier}"
+                                    Radius="1.0"
+                                    XBindingPath="Label"
+                                    YBindingPath="Value" />
 
 
                             </charts:SfCircularChart>
 
-                            <!-- Wewnętrzny wykres: WODA -->
+                            <!--  Wewnętrzny wykres: WODA  -->
                             <charts:SfCircularChart>
-                                <charts:DoughnutSeries   
-                    ItemsSource="{Binding WaterData}"
-                    XBindingPath="Label"
-                    YBindingPath="Value"
-                    Radius="0.85"    
-                    PaletteBrushes="{Binding CustomBrushesWater}"
-                    InnerRadius="0.9"/>
+                                <charts:DoughnutSeries
+                                    InnerRadius="0.9"
+                                    ItemsSource="{Binding WaterData}"
+                                    PaletteBrushes="{Binding CustomBrushesWater}"
+                                    Radius="0.85"
+                                    XBindingPath="Label"
+                                    YBindingPath="Value" />
                             </charts:SfCircularChart>
 
 
 
-                            <!-- Nakładanie elementów w środku -->
-                            <AbsoluteLayout HeightRequest="180" WidthRequest="180" HorizontalOptions="Center" VerticalOptions="Center">
+                            <!--  Nakładanie elementów w środku  -->
+                            <AbsoluteLayout
+                                HeightRequest="180"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                WidthRequest="180">
 
 
-                                <!--Obrazek świni-->
-                                <Image Source="knur.png"
+                                <!--  Obrazek świni  -->
+                                <Image
                                     HeightRequest="175"
-                                    WidthRequest="175"
+                                    HorizontalOptions="Center"
+                                    Source="knur.png"
                                     VerticalOptions="Center"
-                                    HorizontalOptions="Center"/>
+                                    WidthRequest="175" />
 
-                                <!-- Dymek z tekstem -->
+                                <!--  Dymek z tekstem  -->
                                 <Border
                                     AbsoluteLayout.LayoutBounds="2.25,0.75,140,-1"
                                     AbsoluteLayout.LayoutFlags="PositionProportional"
                                     Background="#fff"
-                                    StrokeThickness="0"
+                                    IsVisible="{Binding IsSpeechVisible}"
                                     Opacity="0.95"
-                                    StrokeShape="RoundRectangle 12" >
+                                    StrokeShape="RoundRectangle 12"
+                                    StrokeThickness="0">
+
                                     <Label
-                                    Text="O kurwa ile ty żresz"  
-                                    TextColor="#000"
-                                    FontSize="16"
-                                    HorizontalTextAlignment="Center"/>
+                                        x:Name="DialogLabel"
+                                        FontSize="16"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding SpeechBubbleText}"
+                                        TextColor="#000" />
                                 </Border>
                             </AbsoluteLayout>
                         </Grid>
@@ -96,21 +103,21 @@
 
 
 
-                <!-- Label na środku -->
+                <!--  Label na środku  -->
                 <!--
                 <Border
-               Margin="0"              
+               Margin="0"
                Padding="0"
                BackgroundColor="#2b2b2b"
-               StrokeShape="RoundRectangle 12"   
-               StrokeThickness="0"  
-                HorizontalOptions="Center"          
+               StrokeShape="RoundRectangle 12"
+               StrokeThickness="0"
+                HorizontalOptions="Center"
                >
-                    <Label 
-                    x:Name="PigDialog" 
-                    Text="Spożyte dziś kalorie:" 
+                    <Label
+                    x:Name="PigDialog"
+                    Text="Spożyte dziś kalorie:"
                     FontSize="20"
-                    HorizontalTextAlignment="Center" 
+                    HorizontalTextAlignment="Center"
                     BackgroundColor="WhiteSmoke"
                     TextColor="Black"
                     Padding="10"
@@ -118,36 +125,34 @@
 
                 />
                 </Border>
- -->
-                <Border Grid.Row="1"
-               Margin="16,8"
-               
-               Padding="10"
-               BackgroundColor="#2b2b2b"
-               VerticalOptions="End"
-               StrokeShape="RoundRectangle 12"   
-               StrokeThickness="0"  
-                           
-               >
+                -->
+                <Border
+                    Grid.Row="1"
+                    Margin="16,8"
+                    Padding="10"
+                    BackgroundColor="#2b2b2b"
+                    StrokeShape="RoundRectangle 12"
+                    StrokeThickness="0"
+                    VerticalOptions="End">
                     <VerticalStackLayout>
 
-                        <Label 
-                Text="{Binding CaloriesLabelText}" 
-                FontSize="22" 
-                TextColor="#ed3131"               
-           LineBreakMode="NoWrap"
-           MaxLines="1"
-           HorizontalOptions="Fill"
-           HorizontalTextAlignment="Center" />
+                        <Label
+                            FontSize="22"
+                            HorizontalOptions="Fill"
+                            HorizontalTextAlignment="Center"
+                            LineBreakMode="NoWrap"
+                            MaxLines="1"
+                            Text="{Binding CaloriesLabelText}"
+                            TextColor="#ed3131" />
 
-                        <Label 
-                Text="{Binding WaterLabelText}" 
-                FontSize="22" 
-                TextColor="#25a8e6"
-           LineBreakMode="NoWrap"
-           MaxLines="1"
-           HorizontalOptions="Fill"
-           HorizontalTextAlignment="Center" />
+                        <Label
+                            FontSize="22"
+                            HorizontalOptions="Fill"
+                            HorizontalTextAlignment="Center"
+                            LineBreakMode="NoWrap"
+                            MaxLines="1"
+                            Text="{Binding WaterLabelText}"
+                            TextColor="#25a8e6" />
                     </VerticalStackLayout>
 
                 </Border>
@@ -183,45 +188,42 @@
             </ListView.ItemTemplate>
         </ListView>
 
- -->
+                -->
             </VerticalStackLayout>
 
         </ScrollView>
-        <Border Grid.Row="1"
-               Margin="16,8"
-               
-               Padding="1"
-               BackgroundColor="#2b2b2b"
-               VerticalOptions="End"
-               StrokeShape="RoundRectangle 12"   
-               StrokeThickness="0"  
-                           
-               >
-            <Grid Grid.Row="1"
-              ColumnDefinitions="*,*,*"
-              Padding="12,8"
-                
-                VerticalOptions="End"
-              >
-                <Button Text="Dodaj posiłek"
-                    Clicked="OnAddMealClicked"
+        <Border
+            Grid.Row="1"
+            Margin="16,8"
+            Padding="1"
+            BackgroundColor="#2b2b2b"
+            StrokeShape="RoundRectangle 12"
+            StrokeThickness="0"
+            VerticalOptions="End">
+            <Grid
+                Grid.Row="1"
+                Padding="12,8"
+                ColumnDefinitions="*,*,*"
+                VerticalOptions="End">
+                <Button
                     Grid.Column="0"
-                    />
-                <Button Text="Dane"
-                    Clicked="OnUserDataClicked"
+                    Clicked="OnAddMealClicked"
+                    Text="Dodaj posiłek" />
+                <Button
                     Grid.Column="1"
-                    />
-                <Button Text="Historia"
-                    Clicked="OnHistoryMealClicked"
+                    Clicked="OnUserDataClicked"
+                    Text="Dane" />
+                <Button
                     Grid.Column="2"
-                    />
+                    Clicked="OnHistoryMealClicked"
+                    Text="Historia" />
             </Grid>
         </Border>
         <!--
         <Button Text="Dodaj posiłek" Clicked="OnAddMealClicked"/>
         <Button Text="Dane" Clicked="OnUserDataClicked"/>
         <Button Text="Historia" Clicked="OnHistoryMealClicked"/>
-            -->
+        -->
 
     </Grid>
 
