@@ -79,7 +79,7 @@ namespace KorytoApp.ViewModels
         {
             _mealService = mealService;
             _userService = userService;
-            
+
             TDEEAndWaterCalculate();
             //LoadMealsForToday();
             // inicjalizacja danych kolorów do wykresów
@@ -111,7 +111,7 @@ namespace KorytoApp.ViewModels
                 });
                 _isMessengerRegistered = true;
             }
-            }
+        }
 
 
 
@@ -242,19 +242,19 @@ namespace KorytoApp.ViewModels
             {
                 if (calories == 0 && water > 0) // tylko woda
                 {
-                    ShowRandomSpeech(SpeechContext.AddWater); 
+                    ShowRandomSpeech(SpeechContext.AddWater);
                 }
                 else if (calories > 0 && water == 0 && TotalCalories < Tdee) // tylko żarcie
                 {
-                    ShowRandomSpeech(SpeechContext.AddMeal); 
+                    ShowRandomSpeech(SpeechContext.AddMeal);
                 }
                 else if (calories > 0 && water > 0 && TotalCalories < Tdee) // jedno i drugie, możesz dodać nowy kontekst
                 {
-                    ShowRandomSpeech(SpeechContext.AddMealAndWater); 
+                    ShowRandomSpeech(SpeechContext.AddMealAndWater);
                 }
                 else if (TotalCalories >= Tdee) // przekroczone kalorie
                 {
-                    ShowRandomSpeech(SpeechContext.MaxCalories); 
+                    ShowRandomSpeech(SpeechContext.MaxCalories);
                 }
             }
         }

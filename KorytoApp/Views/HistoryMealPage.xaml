@@ -17,65 +17,112 @@
             RowDefinitions="Auto,Auto,Auto,Auto,*"
             RowSpacing="20">
 
-
-            <DatePicker
-                x:Name="datePicker"
+            <Border
                 Grid.Row="0"
-                DateSelected="OnDateSelected" />
-
-            <Label
+                Margin="16,8"
+                Padding="10"
+                BackgroundColor="#2b2b2b"
+                StrokeShape="RoundRectangle 12"
+                StrokeThickness="0"
+                VerticalOptions="End">
+                <DatePicker
+                    x:Name="datePicker"
+                    Grid.Row="0"
+                    DateSelected="OnDateSelected"
+                    FontSize="26" />
+            </Border>
+            <Border
                 Grid.Row="1"
-                FontSize="24"
-                Text="Spożyte dziś kalorie:" />
-            <Label
+                Margin="16,8"
+                Padding="10"
+                BackgroundColor="#2b2b2b"
+                StrokeShape="RoundRectangle 12"
+                StrokeThickness="0"
+                VerticalOptions="End">
+                <!--  Jeden jedyny child: tu Grid  -->
+                <Grid RowSpacing="10">
+                    <!--  definiujemy wiersze  -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label
+                        Grid.Row="0"
+                        FontSize="24"
+                        Text="Spożyte dziś kalorie:" />
+                    <Label
+                        Grid.Row="1"
+                        FontSize="25"
+                        Text="{Binding CaloriesLabelText}"
+                        TextColor="DarkRed" />
+                    <Label
+                        Grid.Row="2"
+                        FontSize="25"
+                        Text="{Binding WaterLabelText}"
+                        TextColor="LightBlue" />
+                </Grid>
+            </Border>
+
+            <Border
                 Grid.Row="2"
-                FontSize="36"
-                Text="{Binding TotalCalories}"
-                TextColor="DarkRed" />
-            <Label
-                Grid.Row="3"
-                FontSize="36"
-                Text="{Binding TotalWater}"
-                TextColor="LightBlue" />
+                Margin="5,5"
+                Padding="1"
+                BackgroundColor="#2b2b2b"
+                HorizontalOptions="Fill"
+                StrokeShape="RoundRectangle 12"
+                StrokeThickness="0"
+                VerticalOptions="End">
+                <CollectionView
+                    Grid.Row="4"
+                    HorizontalOptions="Center"
+                    ItemsSource="{Binding Meals}">
 
-            <CollectionView Grid.Row="4" ItemsSource="{Binding Meals}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Meal">
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Meal">
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem
+                                            BackgroundColor="Red"
+                                            Command="{Binding BindingContext.DeleteMealCommand, Source={x:Reference historyPage}}"
+                                            CommandParameter="{Binding .}"
+                                            Text="Usuń" />
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <Border
+                                    Grid.Row="2"
+                                    Margin="16,8"
+                                    Padding="10"
+                                    Stroke="White"
+                                    StrokeShape="RoundRectangle 12"
+                                    StrokeThickness="1"
+                                    VerticalOptions="End">
+                                    <Grid Padding="10">
+                                        <VerticalStackLayout>
+                                            <Label
+                                                FontSize="18"
+                                                Text="{Binding Name}"
+                                                TextColor="BurlyWood" />
+                                            <Label
+                                                FontSize="14"
+                                                Text="{Binding Calories, StringFormat='{}{0} kcal'}"
+                                                TextColor="white" />
+                                            <Label
+                                                FontSize="14"
+                                                Text="{Binding Water, StringFormat='{}{0} ml wody'}"
+                                                TextColor="white" />
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </SwipeView>
 
-                        <SwipeView>
-                            <SwipeView.RightItems>
-                                <SwipeItems>
-                                    <SwipeItem
-                                        BackgroundColor="Red"
-                                        Command="{Binding BindingContext.DeleteMealCommand, Source={x:Reference historyPage}}"
-                                        CommandParameter="{Binding .}"
-                                        Text="Usuń" />
-                                </SwipeItems>
-                            </SwipeView.RightItems>
-
-                            <Grid Padding="10">
-                                <VerticalStackLayout>
-                                    <Label
-                                        FontSize="18"
-                                        Text="{Binding Name}"
-                                        TextColor="BurlyWood" />
-                                    <Label
-                                        FontSize="14"
-                                        Text="{Binding Calories, StringFormat='{}{0} kcal'}"
-                                        TextColor="white" />
-                                    <Label
-                                        FontSize="14"
-                                        Text="{Binding Water, StringFormat='{}{0} ml wody'}"
-                                        TextColor="white" />
-                                </VerticalStackLayout>
-                            </Grid>
-                        </SwipeView>
-
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
 
         </Grid>
     </ContentPage.Content>

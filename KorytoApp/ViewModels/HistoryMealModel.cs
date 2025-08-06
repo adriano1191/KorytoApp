@@ -22,6 +22,10 @@ namespace KorytoApp.ViewModels
 
         [ObservableProperty]
         private int totalWater;
+        [ObservableProperty]
+        public string caloriesLabelText;
+        [ObservableProperty]
+        public string waterLabelText;
 
         private DateTime dateSelected;
 
@@ -40,6 +44,8 @@ namespace KorytoApp.ViewModels
 
             TotalCalories = meals.Sum(m => m.Calories);
             TotalWater = meals.Sum(w => w.Water);
+            CaloriesLabelText = $"🥩 Kalorie: {TotalCalories}  kcal 🥩"; // tekst etykiety kalorii
+            WaterLabelText = $"💧Woda: {TotalWater / 1000.0:F2} l💧"; // tekst etykiety wody
         }
 
         [RelayCommand]
